@@ -65,6 +65,7 @@ You can use tools like **PS2EXE** to compile a PowerShell script into a `.exe` f
      ```powershell
      Invoke-PS2EXE -InputFile "Remarkable-Update-Closer.ps1" -OutputFile "Remarkable-Update-Closer.exe"
      ```
+     Or start the gui program: Win-PS2EXE.exe and do it from there (easy) and select Compile a graphic windows proram (parameter -noConsole)
 
 3. **Optional: Hide the Console Window and Add an Icon**:
    - To compile without displaying a console window and include a custom icon:
