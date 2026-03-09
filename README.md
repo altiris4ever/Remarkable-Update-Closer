@@ -1,6 +1,6 @@
 # reMarkable Companion App – Update Control
 
-Utilities and documentation for controlling or disabling the **reMarkable Companion App** auto-update mechanism in managed environments.
+Utilities and documentation for controlling or disabling the **reMarkable Companion App auto-update mechanism** in managed environments.
 
 The reMarkable updater is built on the **WinSparkle** framework:
 https://winsparkle.org
@@ -11,10 +11,10 @@ This repository contains both a **current recommended method** and an **older le
 
 # Status
 
-| Method               | Status  | Description                                                        |
-| -------------------- | ------- | ------------------------------------------------------------------ |
-| WinSparkle DLL stub  | Current | Replaces WinSparkle.dll with a stub to fully disable update checks |
-| Update Dialog Closer | Legacy  | PowerShell script that closes update dialogs when they appear      |
+| Method               | Status  | Description                                                          |
+| -------------------- | ------- | -------------------------------------------------------------------- |
+| WinSparkle DLL stub  | Current | Replaces `WinSparkle.dll` with a stub to fully disable update checks |
+| Update Dialog Closer | Legacy  | PowerShell script that closes update dialogs when they appear        |
 
 The **WinSparkle stub method** is the recommended solution.
 
@@ -28,7 +28,7 @@ In enterprise environments, automatic updaters bundled with applications are oft
 
 The reMarkable updater:
 
-* uses the **WinSparkle** update framework
+* uses the **WinSparkle update framework**
 * requires **administrative privileges** to install updates
 * may repeatedly display update dialogs for standard users
 
@@ -44,7 +44,7 @@ In managed environments, updates should instead be delivered through the organiz
 
 This method replaces `WinSparkle.dll` with a stub implementation that exports the required functions but performs no actions.
 
-Effect:
+### Effect
 
 * Update checks are disabled
 * Update dialogs are never shown
@@ -70,20 +70,20 @@ This script:
 * identifies update dialogs by **window title** and **process name**
 * sends a `WM_CLOSE` message to close the dialog automatically
 
-Implementation details:
+### Implementation details
 
 * Uses **User32.dll** to enumerate windows
 * Matches windows using `ProcessName` and partial title matching
 * Can be compiled to an executable using **PS2EXE**
 
-Additional features in the enhanced version include:
+### Additional features in the enhanced version
 
 * CPU-optimized polling
 * process-aware monitoring
 * logging support
 * improved error handling
 
-Limitations:
+### Limitations
 
 * The updater itself remains active
 * The dialog may reappear if the application triggers another update check
@@ -100,9 +100,9 @@ legacy/update-dialog-closer/
 
 Typical deployment workflow:
 
-1. Install the **reMarkable Companion App** silently.
-2. Replace `WinSparkle.dll` with the stub version.
-3. Deploy updates through the organization's software distribution system.
+1. Install the **reMarkable Companion App** silently
+2. Replace `WinSparkle.dll` with the stub version
+3. Deploy updates through the organization's software distribution system
 
 This integrates cleanly with common enterprise tooling such as:
 
@@ -120,8 +120,10 @@ This integrates cleanly with common enterprise tooling such as:
 ```
 .
 ├─ README.md
-├─ winsparkle-stub
-│   ├─ README.md
+├─ docs
+│   └─ disable-updater-method.md
+│
+├─ scripts
 │   ├─ WinSparkle_stub.c
 │   └─ Build-reMarkable-NoAutoUpdate.ps1
 │
