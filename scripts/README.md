@@ -74,7 +74,7 @@ Example PSADT step:
 Tested versions
 ---------------
 Verified working with:
-
+- reMarkable Companion App 3.10.0.845
 - reMarkable Companion App 3.24.x
 - reMarkable Companion App 3.25.0
 
