@@ -1,6 +1,6 @@
 # reMarkable Companion App – Update Control
 
-Utilities and documentation for controlling or disabling the **reMarkable Companion App auto-update mechanism** in managed environments.
+Utilities and documentation for disabling the reMarkable Companion App auto-update mechanism in managed environments.
 
 The reMarkable updater is built on the **WinSparkle** framework:
 https://winsparkle.org
