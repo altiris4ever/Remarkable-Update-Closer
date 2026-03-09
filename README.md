@@ -1,6 +1,6 @@
 # reMarkable Companion App – Update Control
 
-Utilities and documentation for disabling the reMarkable Companion App auto-update mechanism in managed environments.
+Utilities and documentation for disabling the auto-update mechanism in the **reMarkable Companion App** in managed environments.
 
 The reMarkable updater is built on the **WinSparkle** framework:
 https://winsparkle.org
@@ -9,7 +9,7 @@ This repository contains both a **current recommended method** and an **older le
 
 ---
 
-# Status
+## Status
 
 | Method               | Status  | Description                                                          |
 | -------------------- | ------- | -------------------------------------------------------------------- |
@@ -22,7 +22,30 @@ The legacy method is retained for historical reference and compatibility testing
 
 ---
 
-# Why this Exists
+## Quick Usage
+
+To disable the auto-update mechanism in the reMarkable Companion App:
+
+1. Install the **reMarkable Companion App** normally
+2. Replace the updater library with the stub version included in this repository
+
+Original file location:
+
+```
+C:\Program Files\reMarkable\WinSparkle.dll
+```
+
+Replace it with:
+
+```
+bin/WinSparkle.dll
+```
+
+The application will continue functioning normally but will no longer perform update checks.
+
+---
+
+## Why this Exists
 
 In enterprise environments, automatic updaters bundled with applications are often incompatible with managed deployment models.
 
@@ -32,35 +55,39 @@ The reMarkable updater:
 * requires **administrative privileges** to install updates
 * may repeatedly display update dialogs for standard users
 
-Since standard enterprise users typically **do not have administrative rights**, the updater cannot complete successfully and instead becomes disruptive.
+Since enterprise users typically **do not have administrative rights**, the updater cannot complete successfully and instead becomes disruptive.
 
 In managed environments, updates should instead be delivered through the organization's **software deployment platform**.
 
 ---
 
-# Methods
+## Methods
 
-## Recommended Method – WinSparkle Stub
+### Recommended Method – WinSparkle Stub
 
 This method replaces `WinSparkle.dll` with a stub implementation that exports the required functions but performs no actions.
 
-### Effect
+#### Effect
 
 * Update checks are disabled
 * Update dialogs are never shown
 * The application continues functioning normally
 
-See:
+Relevant files in this repository:
 
 ```
-winsparkle-stub/
+src/WinSparkle_stub.c
+bin/WinSparkle.dll
+scripts/Build-reMarkable-NoAutoUpdate.ps1
 ```
+
+The stub DLL exports the same WinSparkle API expected by the application, allowing it to load normally while preventing update checks.
 
 This approach is more robust because it disables the updater itself instead of reacting to its UI.
 
 ---
 
-## Legacy Method – Update Dialog Closer
+### Legacy Method – Update Dialog Closer
 
 Before the stub approach was developed, the update dialog could be suppressed using a monitoring script.
 
@@ -70,20 +97,20 @@ This script:
 * identifies update dialogs by **window title** and **process name**
 * sends a `WM_CLOSE` message to close the dialog automatically
 
-### Implementation details
+#### Implementation details
 
 * Uses **User32.dll** to enumerate windows
 * Matches windows using `ProcessName` and partial title matching
 * Can be compiled to an executable using **PS2EXE**
 
-### Additional features in the enhanced version
+#### Additional features in the enhanced version
 
 * CPU-optimized polling
 * process-aware monitoring
 * logging support
 * improved error handling
 
-### Limitations
+#### Limitations
 
 * The updater itself remains active
 * The dialog may reappear if the application triggers another update check
@@ -96,7 +123,7 @@ legacy/update-dialog-closer/
 
 ---
 
-# Enterprise Deployment
+## Enterprise Deployment
 
 Typical deployment workflow:
 
@@ -115,7 +142,7 @@ This integrates cleanly with common enterprise tooling such as:
 
 ---
 
-# Repository Structure
+## Repository Structure
 
 ```
 .
@@ -146,7 +173,7 @@ This integrates cleanly with common enterprise tooling such as:
 
 ---
 
-# References
+## References
 
 WinSparkle project
 https://winsparkle.org
