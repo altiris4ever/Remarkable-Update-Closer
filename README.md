@@ -45,6 +45,30 @@ The application will continue functioning normally but will no longer perform up
 
 ---
 
+## Security Note
+
+The repository includes a **precompiled DLL** for convenience, but in security-sensitive environments it is generally recommended to **compile the stub yourself**.
+
+This repository therefore includes:
+
+```
+src/WinSparkle_stub.c
+scripts/Build-reMarkable-NoAutoUpdate.ps1
+```
+
+The PowerShell build script automatically:
+
+* downloads the required compiler
+* compiles the stub DLL
+* installs the application
+* replaces the updater library for testing
+
+Compiling the DLL yourself ensures the binary matches the provided source code.
+
+For quick verification in a **test VM**, it is also possible to simply copy the precompiled DLL from `bin/` and confirm that the updater is disabled.
+
+---
+
 ## Why this Exists
 
 In enterprise environments, automatic updaters bundled with applications are often incompatible with managed deployment models.
