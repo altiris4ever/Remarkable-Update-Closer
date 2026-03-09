@@ -120,12 +120,22 @@ This integrates cleanly with common enterprise tooling such as:
 ```
 .
 ├─ README.md
+│
+├─ bin
+│   ├─ README.md
+│   └─ WinSparkle.dll
+│
 ├─ docs
+│   ├─ README.md
 │   └─ disable-updater-method.md
 │
 ├─ scripts
-│   ├─ WinSparkle_stub.c
+│   ├─ README.md
 │   └─ Build-reMarkable-NoAutoUpdate.ps1
+│
+├─ src
+│   ├─ README.md
+│   └─ WinSparkle_stub.c
 │
 └─ legacy
     └─ update-dialog-closer
