@@ -17,6 +17,12 @@
     Final deployment should normally be handled separately, for example
     through PSADT or another enterprise packaging workflow.
 
+.EXAMPLE
+    .\Build-reMarkable-NoAutoUpdate.ps1
+
+    Builds the WinSparkle stub DLL and installs reMarkable in a test environment
+    so the replacement DLL can be verified before packaging.
+
 .NOTES
     Must be run as Administrator.
 #>
